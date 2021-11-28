@@ -288,7 +288,8 @@ async def 정보(ctx, user: discord.User):
         embed.add_field(name = "순위", value = str(rank) + "/" + str(userNum))
         embed.add_field(name = "보유 자산", value = money, inline = False)
         embed.add_field(name = "도박으로 날린 돈", value = loss, inline = False)
-
+        embed.set_thumbnail(url=ctx.author.avatar_url)
+        
         await ctx.send(embed=embed)
 
 @bot.command()
