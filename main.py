@@ -1,7 +1,8 @@
 import asyncio, discord, time, random, os
+from decimal import Context
 from discord.ext import commands
 
-from openpyxl import load_workbook, Workbook
+import openpyxl
 
 from user import *
 
@@ -50,10 +51,6 @@ async def 임베드(ctx):
     i = (ctx.author.guild_permissions.administrator)
         
     if i is True:
-        amount = ctx.content[4:]
-        await ctx.channel.purge(limit=1)
-        await ctx.channel.purge(limit=int(amount))
-
         embed = discord.Embed(title="디스코드 규칙", description="아래 규정 외에도 관리자 판단하에 문제가 있으면 불이익을 받을 수 있습니다", color=0x03CB00) # Embed의 기본 틀(색상, 메인 제목, 설명)을 잡아줍니다
         embed.add_field(name="1. 부적절한 언어를 사용하지마세요", value="욕설, 성드립, 패드립, 사회이슈, 정치관련, 특정 커뮤니티 언어를 사용하지마세요", inline=False)
         embed.add_field(name="2. 분쟁을 일으키지마세요", value="분쟁이 발생하면 관리자를 호출하고 섣불리 개입하지말아요", inline=False)
@@ -64,11 +61,10 @@ async def 임베드(ctx):
         await ctx.channel.send(embed=embed) # embed를 포함 한 채로 메시지를 전송합니다.
         
     if i is False:
-        await ctx.channel.purge(limit=1)
         embed = discord.Embed(title = "❌   실행권한 없음", description = "명령어를 실행할 권한이 없습니다.", color = 0x800000)
         embed.set_footer(text = f"{ctx.message.author.name} | 제작: joon00#4503", icon_url = ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
-    
+
 @bot.command()
 async def 주사위(ctx):
     result, _color, bot, user = dice()
@@ -333,7 +329,7 @@ async def 정보(ctx, user: discord.User):
         embed.add_field(name = "보유 자산", value = money, inline = False)
         embed.add_field(name = "도박으로 날린 돈", value = loss, inline = False)
         embed.set_thumbnail(url=ctx.author.avatar_url)
-        
+
         await ctx.send(embed=embed)
 
 @bot.command()
@@ -423,7 +419,7 @@ async def on_message(message):
             if levelUp:
                 print(message.author, "가 레벨업 했습니다")
                 print("")
-                embed = discord.Embed(title = "레벨업", description = "레벨이 올랐습니다", color = 0x00A260)
+                embed = discord.Embed(title = "레벨업", description = None, color = 0x00A260)
                 embed.set_footer(text = message.author.name + "이 " + str(lvl) + "레벨 달성!")
                 await channel.send(embed=embed)
             else:
