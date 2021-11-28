@@ -1,8 +1,7 @@
-import asyncio, discord, time 
-from user import *
+import asyncio, discord, time, random, os
 from discord.ext import commands
-import random
-import os
+
+from user import *
 
 bot = commands.Bot(command_prefix="!")
 
