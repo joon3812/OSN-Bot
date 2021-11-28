@@ -82,7 +82,7 @@ async def 주사위(ctx):
         embed.set_footer(text = f"{ctx.message.author.name} | 제작: joon00#4503", icon_url = ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
     else:
-        embed = discord.Embed(title = "주사위 게임 결과", description = None, color = _color)
+        embed = discord.Embed(title = "주사위 게임 결과", description = "당신의 운을 테스트해보세요!", color = _color)
         embed.add_field(name = "Super Bot의 숫자", value = ":game_die: " + bot, inline = True)
         embed.add_field(name = ctx.author.name+"의 숫자", value = ":game_die: " + user, inline = True)
         embed.set_footer(text="결과: " + result)
