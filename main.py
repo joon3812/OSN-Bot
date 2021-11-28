@@ -26,6 +26,7 @@ async def 도움(ctx):
     await ctx.send(embed=embed)
 
 @bot.command()
+async def 주사위(ctx):
     result, _color, bot, user = dice()
 
     userExistance, userRow = checkUser(ctx.author.name, ctx.author.id)
