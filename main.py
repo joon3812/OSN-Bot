@@ -25,7 +25,7 @@ async def 도움(ctx):
     embed.set_footer(text="제작: joon00#4503")
     await ctx.send(embed=embed)
 
-@bot.event
+@bot.command
 async def 청소(ctx):
     i = (ctx.author.guild_permissions.administrator)
         
@@ -45,7 +45,7 @@ async def 청소(ctx):
         embed.set_footer(text = f"{ctx.message.author.name} | 제작: joon00#4503", icon_url = ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
-@bot.event
+@bot.command
 async def 임베드(ctx):
     i = (ctx.author.guild_permissions.administrator)
         
