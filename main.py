@@ -31,53 +31,18 @@ async def 주사위(ctx):
 
     userExistance, userRow = checkUser(ctx.author.name, ctx.author.id)
 
-    file = openpyxl.load_workbook("cooldown.xlsw")
-    sheet = file.active
-    for i in range(1, 50):
-        if sheet["A" + str(i)].value == ctx.author.id:
-            if int(sheet["B" + str(i)].value) <= int(datetime.datetime.today().strftime("%Y%m%d%H%M%S")):
-                if not userExistance:
-                    print("DB에서 ", ctx.author.name, "을 찾을 수 없습니다")
-                    print("------------------------------\n")
-                    embed = discord.Embed(title = "❌   데이터베이스 가입필요", description = "회원가입 후에 사용이 가능합니다.", color = 0x800000)
-                    embed.set_footer(text = f"{ctx.message.author.name} | 제작: joon00#4503", icon_url = ctx.message.author.avatar_url)
-                    await ctx.send(embed=embed)
-                    
-                    a = datetime.datetime.today() + datetime.timedelta(seconds=3)
-                    sheet["B" + str(i)].value = a.strftime("%Y%m%d%H%M%S")
-                    file.save("cooldown.xlsw")
-                else:
-                    embed = discord.Embed(title = "주사위 게임 결과", description = None, color = _color)
-                    embed.add_field(name = "Super Bot의 숫자", value = ":game_die: " + bot, inline = True)
-                    embed.add_field(name = ctx.author.name+"의 숫자", value = ":game_die: " + user, inline = True)
-                    embed.set_footer(text="결과: " + result)
-                    await ctx.send(embed=embed)
-                    
-                    a = datetime.datetime.today() + datetime.timedelta(seconds=3)
-                    sheet["B" + str(i)].value = a.strftime("%Y%m%d%H%M%S")
-                    file.save("cooldown.xlsw")
-            else:
-                embed = discord.Embed(title = "스팸 방지", description = "너무 빨리 입력하셨습니다", color = 0xFAFA00)
-                await ctx.send(embed=embed)
-            break
-        if sheet["A" + str(i)].value == "-":
-            sheet["A" + str(i)].value == ctx.author.id
-            a = datetime.datetime.today() + datetime.timedelta(seconds=3)
-            sheet["B" + str(i)].value = a.strftime("%Y%m%d%H%M%S")
-            file.save("cooldown.xlsw")
-            if not userExistance:
-                print("DB에서 ", ctx.author.name, "을 찾을 수 없습니다")
-                print("------------------------------\n")
-                embed = discord.Embed(title = "❌   데이터베이스 가입필요", description = "회원가입 후에 사용이 가능합니다.", color = 0x800000)
-                embed.set_footer(text = f"{ctx.message.author.name} | 제작: joon00#4503", icon_url = ctx.message.author.avatar_url)
-                await ctx.send(embed=embed)
-            else:
-                embed = discord.Embed(title = "주사위 게임 결과", description = None, color = _color)
-                embed.add_field(name = "Super Bot의 숫자", value = ":game_die: " + bot, inline = True)
-                embed.add_field(name = ctx.author.name+"의 숫자", value = ":game_die: " + user, inline = True)
-                embed.set_footer(text="결과: " + result)
-                await ctx.send(embed=embed)
-            break
+    if not userExistance:
+        print("DB에서 ", ctx.author.name, "을 찾을 수 없습니다")
+        print("------------------------------\n")
+        embed = discord.Embed(title = "❌   데이터베이스 가입필요", description = "회원가입 후에 사용이 가능합니다.", color = 0x800000)
+        embed.set_footer(text = f"{ctx.message.author.name} | 제작: joon00#4503", icon_url = ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
+    else:
+        embed = discord.Embed(title = "주사위 게임 결과", description = None, color = _color)
+        embed.add_field(name = "Super Bot의 숫자", value = ":game_die: " + bot, inline = True)
+        embed.add_field(name = ctx.author.name+"의 숫자", value = ":game_die: " + user, inline = True)
+        embed.set_footer(text="결과: " + result)
+        await ctx.send(embed=embed)
 
 def dice():
     print("game.py - dice")
