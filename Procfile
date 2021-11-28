@@ -1,1 +1,1 @@
-worker: python OSN.py
+worker: python main.py
