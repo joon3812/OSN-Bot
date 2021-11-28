@@ -26,24 +26,6 @@ async def 도움(ctx):
     embed.set_footer(text="제작: joon00#4503")
     await ctx.send(embed=embed)
 
-@bot.event
-async def on_message(message):
-    if message.content.startswith ("!청소"):
-        i = (message.author.guild_permissions.administrator)
-
-        if i is True:
-            amount = message.content[4:]
-            await message.channel.purge(limit=1)
-            await message.channel.purge(limit=int(amount))
-
-            embed = discord.Embed(title="메시지 삭제 알림", description="최근 디스코드 채팅 {}개가\n관리자 {}님의 요청으로 인해 정상 삭제 조치 되었습니다".format(amount, message.author), color=0x000000)
-            embed.set_footer(text="Bot Made by. 바코드 #1741", icon_url="https://discordapp.com/channels/691615852620939274/703908401381376000/711859989177958410")
-            await message.channel.send(embed=embed)
-        
-        if i is False:
-            await message.channel.purge(limit=1)
-            await message.channel.send("{}, 당신은 명령어를 사용할 수 있는 권한이 없습니다".format(message.author.mention))
-
 @bot.command()
 async def 주사위(ctx):
     result, _color, bot, user = dice()
