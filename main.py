@@ -2,9 +2,9 @@ import asyncio, discord, time
 from user import *
 from discord.ext import commands
 import random
+import os
 
 bot = commands.Bot(command_prefix="!")
-token = open("token.txt", "r").readline()
 
 @bot.event
 async def on_ready():
@@ -395,4 +395,4 @@ async def on_command_error(ctx, error):
         embed = discord.Embed(title = "❓   잘못된 명령어", description = "잘못된 명령어입니다. !도움 으로 명령어를 확인하세요.", color = 0x800000)
         await ctx.send(embed=embed)
 
-bot.run(token)
+client.run(os.environ['token'])
