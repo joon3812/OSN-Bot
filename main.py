@@ -266,7 +266,7 @@ async def 내정보(ctx):
         embed.add_field(name = "보유 자산", value = money, inline = False)
         embed.add_field(name = "도박으로 날린 돈", value = loss, inline = False)
         embed.set_thumbnail(url=ctx.author.avatar_url)
-        embed.set_footer(text="데이터 베이스 손상 시 문의하시길 바랍니다 │ joon00#4503")
+        embed.set_footer(text="데이터베이스 손상 시 문의하시기 바랍니다 │ joon00#4503")
 
         await ctx.send(embed=embed)
 
