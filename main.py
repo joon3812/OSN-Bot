@@ -7,7 +7,7 @@ bot = commands.Bot(command_prefix="!")
 
 @bot.event
 async def on_ready():
-    print("I have logged in as {0.user}\n".format(bot))
+    print("이제 {0.user} 으로 온라인 상태임".format(bot))
 
 @bot.command()
 async def 도움(ctx):
