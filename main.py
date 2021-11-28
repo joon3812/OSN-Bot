@@ -26,44 +26,23 @@ async def 도움(ctx):
     embed.set_footer(text="제작: joon00#4503")
     await ctx.send(embed=embed)
 
-@bot.command
-async def 청소(ctx):
-    i = (ctx.message.author.guild_permissions.administrator)
-        
-    if i is True:
-        amount = ctx.content[4:]
-        await ctx.channel.purge(limit=1)
-        await ctx.channel.purge(limit=int(amount))
+@bot.event
+async def on_message(message):
+    if message.content.startswith ("!청소"):
+        i = (message.author.guild_permissions.administrator)
 
-        embed = discord.Embed(title="메시지 청소", description="{}개의 채팅이\n관리자 {}님으로 인해서 삭제되었습니다".format(amount, ctx.author), color=0x000000)
-        embed.set_footer(text="제작: joon00#4503")
-        await Context.channel.send(embed=embed)
-        
-    if i is False:
-        await ctx.channel.purge(limit=1)
-            
-        embed = discord.Embed(title = "❌   실행권한 없음", description = "명령어를 실행할 권한이 없습니다.", color = 0x800000)
-        embed.set_footer(text = f"{ctx.message.author.name} | 제작: joon00#4503", icon_url = ctx.message.author.avatar_url)
-        await ctx.send(embed=embed)
+        if i is True:
+            amount = message.content[4:]
+            await message.channel.purge(limit=1)
+            await message.channel.purge(limit=int(amount))
 
-@bot.command
-async def 임베드(ctx):
-    i = (ctx.author.guild_permissions.administrator)
+            embed = discord.Embed(title="메시지 삭제 알림", description="최근 디스코드 채팅 {}개가\n관리자 {}님의 요청으로 인해 정상 삭제 조치 되었습니다".format(amount, message.author), color=0x000000)
+            embed.set_footer(text="Bot Made by. 바코드 #1741", icon_url="https://discordapp.com/channels/691615852620939274/703908401381376000/711859989177958410")
+            await message.channel.send(embed=embed)
         
-    if i is True:
-        embed = discord.Embed(title="디스코드 규칙", description="아래 규정 외에도 관리자 판단하에 문제가 있으면 불이익을 받을 수 있습니다", color=0x03CB00) # Embed의 기본 틀(색상, 메인 제목, 설명)을 잡아줍니다
-        embed.add_field(name="1. 부적절한 언어를 사용하지마세요", value="욕설, 성드립, 패드립, 사회이슈, 정치관련, 특정 커뮤니티 언어를 사용하지마세요", inline=False)
-        embed.add_field(name="2. 분쟁을 일으키지마세요", value="분쟁이 발생하면 관리자를 호출하고 섣불리 개입하지말아요", inline=False)
-        embed.add_field(name="3. 특정 유저나 집단을 배척하지마세요", value="언급을 하는 것은 자유롭지만 특정 대상을 몰이하며 비방을 하지마세요", inline=False)
-        embed.add_field(name="4. 과도한 친목행위를 하지마세요", value="지나친 친목은 다른 사람들이 보기에 좋지않아요", inline=False)
-        embed.add_field(name="5. 기본적인 매너를 지키세요", value="타인에게 바르지못한 행위 및 태도를 보이지마세요", inline=False)
-        embed.set_footer(text="Copyright © 2021 joon00.") # 하단에 들어가는 조그마한 설명을 잡아줍니다
-        await ctx.channel.send(embed=embed) # embed를 포함 한 채로 메시지를 전송합니다.
-        
-    if i is False:
-        embed = discord.Embed(title = "❌   실행권한 없음", description = "명령어를 실행할 권한이 없습니다.", color = 0x800000)
-        embed.set_footer(text = f"{ctx.message.author.name} | 제작: joon00#4503", icon_url = ctx.message.author.avatar_url)
-        await ctx.send(embed=embed)
+        if i is False:
+            await message.channel.purge(limit=1)
+            await message.channel.send("{}, 당신은 명령어를 사용할 수 있는 권한이 없습니다".format(message.author.mention))
 
 @bot.command()
 async def 주사위(ctx):
