@@ -412,7 +412,7 @@ async def on_message(message):
             if levelUp:
                 print(message.author, "가 레벨업 했습니다")
                 print("")
-                embed = discord.Embed(title = "레벨업", description = None, color = 0x00A260)
+                embed = discord.Embed(title = "레벨업", description = "레벨이 올랐습니다", color = 0x00A260)
                 embed.set_footer(text = message.author.name + "이 " + str(lvl) + "레벨 달성!")
                 await channel.send(embed=embed)
             else:
