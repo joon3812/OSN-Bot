@@ -1,4 +1,4 @@
-import asyncio, discord, time, random, os
+import asyncio, discord, random, os, datetime, time
 from decimal import Context
 from discord.ext import commands
 
@@ -16,15 +16,48 @@ async def on_ready():
 async def 도움(ctx):
     embed = discord.Embed(title = "Our Sandbox Network", description = "시험 제작중인 봇입니다", color = 0x6E17E3) 
     embed.add_field(name = bot.command_prefix + "도움", value = "모든 명령어를 확인합니다", inline = False)
-    embed.add_field(name = bot.command_prefix + "회원가입", value = "데이터베이스에 가입하여 추가기능 사용 권한을 얻습니다", inline = False)
-    embed.add_field(name = bot.command_prefix + "회원탈퇴", value = "모든 기록을 데이터베이스에서 제거합니다", inline = False)
+    embed.add_field(name = bot.command_prefix + "회원가입", value = "데이터베이스에 가입합니다", inline = False)
+    embed.add_field(name = bot.command_prefix + "회원탈퇴", value = "사용자의 기록을 데이터베이스에서 제거합니다", inline = False)
     embed.add_field(name = bot.command_prefix + "내정보", value = "나의 정보를 확인합니다", inline = False)
     embed.add_field(name = bot.command_prefix + "정보 [대상]", value = "멘션한 [대상]의 정보를 확인합니다", inline = False)
     embed.add_field(name = bot.command_prefix + "송금 [대상] [돈]", value = "멘션 [대상]에게 [돈]을 보냅니다", inline = False)
     embed.add_field(name = bot.command_prefix + "도박 [돈]", value = "[돈] 을 걸어 도박을 합니다\n누적 잃은 돈은 정보에서 확인이 가능합니다", inline = False)
     embed.add_field(name = bot.command_prefix + "가위바위보 [가위/바위/보]", value = "봇과 가위바위보를 합니다", inline = False)
+    embed.add_field(name = bot.command_prefix + "청소 [숫자]", value = "[숫자]만큼 최근 메세지를 삭제합니다\n관리자 권한이 있어야 사용이 가능합니다", inline = False)
+
     embed.set_footer(text="제작: joon00#4503")
     await ctx.send(embed=embed)
+
+@bot.command()
+async def 청소(ctx, number:int=None):
+    if ctx.guild:
+        if ctx.message.author.guild_permissions.manage_messages:
+            try:
+                if number is None:
+                    embed = discord.Embed(title = "❌   오류", description = "숫자를 입력해주세요.", color = 0x800000)
+                    embed.set_footer(text = f"{ctx.message.author.name} | 제작: joon00#4503", icon_url = ctx.message.author.avatar_url)
+                    await ctx.send(embed=embed)
+                elif 50 < number:
+                    embed = discord.Embed(title = "❌   오류", description = "숫자 '50' 보다 큰 수는 입력할 수 없습니다", color = 0x800000)
+                    embed.set_footer(text = f"{ctx.message.author.name} | 제작: joon00#4503", icon_url = ctx.message.author.avatar_url)
+                    await ctx.send(embed=embed)
+                else:
+                    deleted = await ctx.message.channel.purge(limit=number)
+                    embed = discord.Embed(title = "☑   메세지 삭제완료", description = f"{ctx.message.author.mention} 님이 `{len(deleted)}` 개의 메세지를 삭제하였습니다.", color = 0x2fc38d)
+                    embed.set_footer(text = f"{ctx.message.author.name} | 제작: joon00#4503", icon_url = ctx.message.author.avatar_url)
+                    await ctx.send(embed=embed)
+            except:
+                embed = discord.Embed(title = "❌   오류", description = "메세지를 삭제할 수 없습니다.", color = 0x800000)
+                embed.set_footer(text = f"{ctx.message.author.name} | 제작: joon00#4503", icon_url = ctx.message.author.avatar_url)
+                await ctx.send(embed=embed)
+        else:
+            embed = discord.Embed(title = "❌   권한 없음", description = "명령어를 사용할 권한이 없습니다.", color = 0x800000)
+            embed.set_footer(text = f"{ctx.message.author.name} | 제작: joon00#4503", icon_url = ctx.message.author.avatar_url)
+            await ctx.send(embed=embed)
+    else:
+        embed = discord.Embed(title = "❌   오류", description = "DM 에서는 사용할 수 없습니다.", color = 0x800000)
+        embed.set_footer(text = f"{ctx.message.author.name} | 제작: joon00#4503", icon_url = ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
 
 @bot.command()
 async def 주사위(ctx):
@@ -75,6 +108,7 @@ async def 가위바위보(ctx, user: str):  # user:str로 !game 다음에 나오
         if result == 0:
             await ctx.send("가위바위보 결과를 기다리는 중...")
             await asyncio.sleep(1.2)
+            await ctx.delete()
         
             embed = discord.Embed(title = "가위바위보 결과", description = "나의 운을 시험해봅니다", color = 0xFAFA00)
             embed.add_field(name = "가위바위보 봇 │", value = f"{user}", inline = True)
