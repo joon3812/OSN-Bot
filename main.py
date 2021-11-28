@@ -395,4 +395,4 @@ async def on_command_error(ctx, error):
         embed = discord.Embed(title = "❓   잘못된 명령어", description = "잘못된 명령어입니다. !도움 으로 명령어를 확인하세요.", color = 0x800000)
         await ctx.send(embed=embed)
 
-client.run(os.environ['token'])
+bot.run(os.environ['token'])
