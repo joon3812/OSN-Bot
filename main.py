@@ -28,7 +28,7 @@ async def 도움(ctx):
 
 @bot.command
 async def 청소(ctx):
-    i = (ctx.author.guild_permissions.administrator)
+    i = (ctx.message.author.guild_permissions.administrator)
         
     if i is True:
         amount = ctx.content[4:]
