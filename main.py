@@ -13,7 +13,7 @@ async def on_ready():
     print("이제 {0.user} 으로 온라인 상태임".format(bot))
 
 @bot.command()
-async def 도움(ctx):
+async def 명령어(ctx):
     embed = discord.Embed(title = "Our Sandbox Network", description = "시험 제작중인 봇입니다", color = 0x6E17E3) 
     embed.add_field(name = bot.command_prefix + "도움", value = "모든 명령어를 확인합니다", inline = False)
     embed.add_field(name = bot.command_prefix + "회원가입", value = "데이터베이스에 가입합니다", inline = False)
