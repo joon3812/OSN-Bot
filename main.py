@@ -416,7 +416,7 @@ async def on_message(message):
                 print("")
                 embed = discord.Embed(title = "레벨업", description = "레벨이 상승했다!", color = 0x00A260)
                 embed.set_footer(text = message.author.name + "이 " + str(lvl) + "레벨 달성")
-                await channel.send(embed=embed)
+                #await channel.send(embed=embed)
             else:
                 modifyExp(userRow, 1)
                 print("------------------------------\n")
