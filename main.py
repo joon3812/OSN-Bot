@@ -15,7 +15,7 @@ async def on_ready():
 @bot.command()
 async def 명령어(ctx):
     embed = discord.Embed(title = "Our Sandbox Network", description = "시험 제작중인 봇입니다", color = 0x6E17E3) 
-    embed.add_field(name = bot.command_prefix + "도움", value = "모든 명령어를 확인합니다", inline = False)
+    embed.add_field(name = bot.command_prefix + "명령어", value = "모든 명령어를 확인합니다", inline = False)
     embed.add_field(name = bot.command_prefix + "회원가입", value = "데이터베이스에 가입합니다", inline = False)
     embed.add_field(name = bot.command_prefix + "회원탈퇴", value = "사용자의 기록을 데이터베이스에서 제거합니다", inline = False)
     embed.add_field(name = bot.command_prefix + "내정보", value = "나의 정보를 확인합니다", inline = False)
@@ -426,7 +426,7 @@ async def on_message(message):
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
-        embed = discord.Embed(title = "❓   잘못된 명령어", description = "잘못된 명령어입니다. !도움 으로 명령어를 확인하세요.", color = 0x800000)
+        embed = discord.Embed(title = "❓   잘못된 명령어", description = "잘못된 명령어입니다. !명령어 으로 명령어를 확인하세요.", color = 0x800000)
         await ctx.send(embed=embed)
         
         
