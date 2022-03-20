@@ -1,2 +1,2 @@
 # OSN-Bot
-For 24hours Online
+24시간
